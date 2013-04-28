@@ -2,6 +2,11 @@ import eliza
 import dbus, gobject
 from dbus.mainloop.glib import DBusGMainLoop
 
+import subprocess
+
+def sendnotify(message):
+    subprocess.Popen(['notify-send', message])
+    return
 
 	
 dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
@@ -22,6 +27,7 @@ def my_func(account, sender, message, conversation, flags):
 		#print mail_id
 		if purple.PurpleBuddyGetName( online ) == mail_id:
 				talker = eliza.eliza()
+				sendnotify( "ELIZA : "+str(purple.PurpleBuddyGetAlias( online ))+" has pinged you and I will talk to him " )
 				sendmessage( [ purple.PurpleBuddyGetAlias( online ) ] , talker.respond( message ) )
 #	print purple.PurpleBuddyGetAlias( account )
 
