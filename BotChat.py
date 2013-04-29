@@ -1,4 +1,4 @@
-import eliza
+import cleverbot
 import dbus, gobject
 from dbus.mainloop.glib import DBusGMainLoop
 
@@ -26,9 +26,10 @@ def my_func(account, sender, message, conversation, flags):
 	for online in purple.PurpleFindBuddies( (purple.PurpleAccountsGetAllActive())[0], '' ):
 		#print mail_id
 		if purple.PurpleBuddyGetName( online ) == mail_id:
-				talker = eliza.eliza()
-				sendnotify( "ELIZA : "+str(purple.PurpleBuddyGetAlias( online ))+" has pinged you and I will talk to him " )
-				sendmessage( [ purple.PurpleBuddyGetAlias( online ) ] , talker.respond( message ) )
+				talker = cleverbot.Session()
+				sendnotify( "CLBOT : "+str(purple.PurpleBuddyGetAlias( online ))+" has pinged, I will do the talking " )
+				
+				sendmessage( [ purple.PurpleBuddyGetAlias( online ) ] , talker.Ask( message) )
 #	print purple.PurpleBuddyGetAlias( account )
 
 
